@@ -1,0 +1,9 @@
+../Core/Src/LedTask.c:37:6:CreateLedTask	16	static
+../Core/Src/LedTask.c:70:6:LedToggleTask1	24	static
+../Core/Src/LedTask.c:81:6:LedToggleTask2	24	static
+../Core/Src/LedTask.c:153:6:LedToggleTask3v2	32	static
+../Core/Src/LedTask.c:172:6:animationTask1	16	static
+../Core/Src/LedTask.c:183:6:animationTask2	16	static
+../Core/Src/LedTask.c:194:6:animationTask3	16	static
+../Core/Src/LedTask.c:208:6:JoyTask	24	static
+../Core/Src/LedTask.c:222:6:LedAnimationTask6	16	static
