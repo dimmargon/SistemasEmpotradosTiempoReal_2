@@ -30,7 +30,10 @@ int led = 1;
 /*
  * EJERCICIO 6
  */
-TaskHandle_t taskHandler;
+TaskHandle_t taskHandler1;
+TaskHandle_t taskHandler2;
+TaskHandle_t taskHandler3;
+
 extern uint8_t numPulsaciones;
 
 
@@ -47,7 +50,7 @@ void CreateLedTask(){
 	/*
 	 * EJERCICIO 3
 	 */
-//	xTaskCreate(LedToggleTask3v2, "LedToogleTask1", 128, &led, 1, NULL);
+//	xTaskCreate(LedToggleTask3, "LedToogleTask1", 128, &led, 1, NULL);
 	/*
 	 * EJERCICIO 4
 	 */
@@ -61,7 +64,9 @@ void CreateLedTask(){
 	/*
 	 * EJERCICIO 6
 	 */
-	xTaskCreate(LedAnimationTask6, "AnimationTask", 128, NULL, 1, &taskHandler);
+	xTaskCreate(animationTask1, "LedAnimationTask1", 128, NULL, 1, &taskHandler1);
+	xTaskCreate(animationTask2, "LedAnimationTask2", 128, NULL, 1, &taskHandler2);
+	xTaskCreate(animationTask3, "LedAnimationTask3", 128, NULL, 1, &taskHandler3);
 }
 
 /*
@@ -106,51 +111,7 @@ void LedToggleTask2(void *pArg) {
 /*
  * EJERCICIO 3
  */
-//void LedToggleTask3v1(void *pArg) {
-//	int i = *(int*) pArg;
-//	int conmutaciones = 0;
-//	for (;;) {
-//		switch (i) {
-//		case 1:
-//			LED_Toggle(i);
-//			vTaskDelay(500);
-//			conmutaciones++;
-//			if (conmutaciones == 10) {
-//				conmutaciones = 0;
-//				i = i + 1;
-//				xTaskCreate(LedToggleTask3, "LedToogleTask2", 128, &i, 1, NULL);
-//				vTaskDelete(NULL);
-//			}
-//			break;
-//		case 2:
-//			LED_Toggle(i);
-//			vTaskDelay(500);
-//			conmutaciones++;
-//			if (conmutaciones == 10) {
-//				conmutaciones = 0;
-//				i = i + 1;
-//				xTaskCreate(LedToggleTask3, "LedToogleTask3", 128, &i, 1, NULL);
-//				vTaskDelete(NULL);
-//			}
-//			break;
-//		case 3:
-//			LED_Toggle(i);
-//			vTaskDelay(500);
-//			conmutaciones++;
-//			if (conmutaciones == 10) {
-//				conmutaciones = 0;
-//				i = 0;
-//				i = i + 1;
-//				xTaskCreate(LedToggleTask3, "LedToogleTask4", 128, &i, 1, NULL);
-//				vTaskDelete(NULL);
-//			}
-//			break;
-//
-//		}
-//	}
-//}
-
-void LedToggleTask3v2(void *pArg) {
+void LedToggleTask3(void *pArg) {
 	int i = *(int*) pArg;
 	int conmutaciones = 0;
 	for (;;) {
@@ -166,76 +127,83 @@ void LedToggleTask3v2(void *pArg) {
 	}
 }
 
-/*
- * EJERCICIO 4
- */
-void animationTask1(void *pArg) {
-//	for(;;){
-	LED_Toggle(1);
-	vTaskDelay(200);
-	LED_Toggle(1);
-		vTaskDelay(200);
-		LED_Toggle(1);
-			vTaskDelay(200);
-//	}
-}
-
-void animationTask2(void *pArg) {
-//	for(;;){
-	LED_Toggle(2);
-	vTaskDelay(200);
-	LED_Toggle(2);
-		vTaskDelay(200);
-		LED_Toggle(2);
-			vTaskDelay(200);
-//	}
-}
-
-void animationTask3(void *pArg) {
-//	for(;;){
-	LED_Toggle(3);
-	vTaskDelay(200);
-	LED_Toggle(3);
-		vTaskDelay(200);
-		LED_Toggle(3);
-			vTaskDelay(200);
-//	}
-}
 
 /*
  * EJERCICIO 5
  */
-void JoyTask(void *pArg){
-	for(;;){
+void JoyTask(void *pArg) {
+	for (;;) {
 		uint8_t joyState = ReadJoy();
 		if (joyState != 0) {
 //			LED_Toggle(0);
-			xTaskNotifyGive(taskHandler);
+			switch (numPulsaciones) {
+			case 1:
+				xTaskNotifyGive(taskHandler1);
+				break;
+			case 2:
+				xTaskNotifyGive(taskHandler2);
+				break;
+			case 3:
+				xTaskNotifyGive(taskHandler3);
+				break;
+			}
+
 		}
 		vTaskDelay(10);
 	}
 }
 
 /*
- * EJERCICIO 6
+ * EJERCICIO 4 y 6 #para el ej 6 se ha añadido la espera por notificacion
  */
-void LedAnimationTask6(void *pArg) {
-
+void animationTask1(void *pArg) {
 	for (;;) {
 		ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-		switch(numPulsaciones){
-		case 1:
-			animationTask1(NULL);
-			break;
-		case 2:
-			animationTask2(NULL);
-			break;
-		case 3:
-			animationTask3(NULL);
-			break;
+		for (int i = 0; i < 4; i++) {
+			LED_Toggle(1);
+			vTaskDelay(500);
+			LED_Toggle(1);
+			vTaskDelay(500);
 		}
 	}
 }
 
+void animationTask2(void *pArg) {
+	for (;;) {
+		ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+		LED_Toggle(2);
+		vTaskDelay(600);
+		LED_Toggle(2);
+		vTaskDelay(300);
 
+		LED_Toggle(2);
+		vTaskDelay(300);
+		LED_Toggle(2);
+		vTaskDelay(300);
 
+		LED_Toggle(2);
+		vTaskDelay(300);
+		LED_Toggle(2);
+		vTaskDelay(600);
+	}
+}
+
+void animationTask3(void *pArg) {
+	for (;;) {
+		ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
+		LED_Toggle(3);
+		vTaskDelay(300);
+		LED_Toggle(3);
+		vTaskDelay(150);
+
+		LED_Toggle(3);
+		vTaskDelay(600);
+		LED_Toggle(3);
+		vTaskDelay(200);
+
+		LED_Toggle(3);
+		vTaskDelay(100);
+		LED_Toggle(3);
+		vTaskDelay(700);
+	}
+}
