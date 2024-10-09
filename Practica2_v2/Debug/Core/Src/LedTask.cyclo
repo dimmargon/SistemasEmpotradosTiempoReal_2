@@ -1,0 +1,8 @@
+../Core/Src/LedTask.c:40:6:CreateLedTask	1
+../Core/Src/LedTask.c:75:6:LedToggleTask1	1
+../Core/Src/LedTask.c:86:6:LedToggleTask2	5
+../Core/Src/LedTask.c:114:6:LedToggleTask3	3
+../Core/Src/LedTask.c:134:6:JoyTask	6
+../Core/Src/LedTask.c:159:6:animationTask1	2
+../Core/Src/LedTask.c:171:6:animationTask2	1
+../Core/Src/LedTask.c:191:6:animationTask3	1
