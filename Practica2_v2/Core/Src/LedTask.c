@@ -121,7 +121,7 @@ void LedToggleTask3(void *pArg) {
 		if (conmutaciones == 10) {
 			conmutaciones = 0;
 			i=(i==3) ? 1 : i+1;
-			xTaskCreate(LedToggleTask3v2, "LedToogleTask4", 128, &i, 1, NULL);
+			xTaskCreate(LedToggleTask3, "LedToogleTask4", 128, &i, 1, NULL);
 			vTaskDelete(NULL);
 		}
 	}
@@ -159,7 +159,7 @@ void JoyTask(void *pArg) {
 void animationTask1(void *pArg) {
 	for (;;) {
 		ulTaskNotifyTake(pdTRUE, portMAX_DELAY);
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 3; i++) {
 			LED_Toggle(1);
 			vTaskDelay(500);
 			LED_Toggle(1);
