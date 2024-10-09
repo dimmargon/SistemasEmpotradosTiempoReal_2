@@ -69,7 +69,8 @@ int __io_getchar(void){
 	return ch;
 }
 
-void Pressure_Test1(void) {
+void Pressure_Test(void)
+{
 	float press_value = 0;
 	BSP_PSENSOR_Init();
 	press_value = BSP_PSENSOR_ReadPressure();
@@ -77,95 +78,105 @@ void Pressure_Test1(void) {
 	printf("---------------------------\r\n");
 	HAL_Delay(1000);
 }
-void Pressure_Test2(float *press_value) {
+void Pressure_Test2(float *press_value)
+{
     BSP_PSENSOR_Init();
     *press_value = BSP_PSENSOR_ReadPressure();
 }
 
-void Humidity_Test1(void){
-	float humidity_value  = 0;
+void Humidity_Test(void)
+{
+	float humidity_value = 0;
 	BSP_HSENSOR_Init();
 
-		humidity_value = BSP_HSENSOR_ReadHumidity();
-		printf("HUMIDITY is = %.2f %%\r\n", humidity_value);
-		printf("---------------------------\r\n");
-		HAL_Delay(1000);
+	humidity_value = BSP_HSENSOR_ReadHumidity();
+	printf("HUMIDITY is = %.2f %%\r\n", humidity_value);
+	printf("---------------------------\r\n");
+	HAL_Delay(1000);
 
 }
-void Humidity_Test2(float *humidity_value) {
+void Humidity_Test2(float *humidity_value)
+{
     BSP_HSENSOR_Init();
     *humidity_value = BSP_HSENSOR_ReadHumidity();
 }
 
-void Temperature_Test1(void){
-	float temperature_value  = 0;
+void Temperature_Test(void)
+{
+	float temperature_value = 0;
 	BSP_TSENSOR_Init();
 
-		temperature_value = BSP_TSENSOR_ReadTemp();
-		printf("TEMPERATURE is = %.2f ºC\r\n", temperature_value);
-		printf("---------------------------\r\n");
-		HAL_Delay(1000);
+	temperature_value = BSP_TSENSOR_ReadTemp();
+	printf("TEMPERATURE is = %.2f ºC\r\n", temperature_value);
+	printf("---------------------------\r\n");
+	HAL_Delay(1000);
 
 }
-void Temperature_Test2(float *temperature_value) {
+void Temperature_Test2(float *temperature_value)
+{
     BSP_TSENSOR_Init();
     *temperature_value = BSP_TSENSOR_ReadTemp();
 }
 
-void Accelero_Test1(void){
-	int16_t pDataXYZ[3] = {0};
+void Accelero_Test(void)
+{
+	int16_t pDataXYZ[3] = { 0 };
 	BSP_ACCELERO_Init();
 
-		BSP_ACCELERO_AccGetXYZ(pDataXYZ);
-		printf("X=%d, Y=%d, Z=%d\r\n", pDataXYZ[0], pDataXYZ[1], pDataXYZ[2]);
-		printf("---------------------------\r\n");
-		HAL_Delay(1000);
-
+	BSP_ACCELERO_AccGetXYZ(pDataXYZ);
+	printf("X=%d, Y=%d, Z=%d\r\n", pDataXYZ[0], pDataXYZ[1], pDataXYZ[2]);
+	printf("---------------------------\r\n");
+	HAL_Delay(1000);
 
 	BSP_ACCELERO_DeInit();
 	//printf("\n*** End of Accelerometer Test ***\n");
 	return;
 }
-void Accelero_Test2(int16_t *pDataXYZ) {
+void Accelero_Test2(int16_t *pDataXYZ)
+{
     BSP_ACCELERO_Init();
     BSP_ACCELERO_AccGetXYZ(pDataXYZ);
 }
 
-void Gyro_Test1(void){
-	float pGyroDataXYZ[3] = {0};
+void Gyro_Test(void)
+{
+	float pGyroDataXYZ[3] = { 0 };
 	BSP_GYRO_Init();
 
-		BSP_GYRO_GetXYZ(pGyroDataXYZ);
-		printf("GYRO_X = %.2f \r\n", pGyroDataXYZ[0]);
-		printf("GYRO_Y = %.2f \r\n", pGyroDataXYZ[1]);
-		printf("GYRO_Z = %.2f \r\n", pGyroDataXYZ[2]);
-		printf("---------------------------\r\n");
-		HAL_Delay(1000);
+	BSP_GYRO_GetXYZ(pGyroDataXYZ);
+	printf("GYRO_X = %.2f \r\n", pGyroDataXYZ[0]);
+	printf("GYRO_Y = %.2f \r\n", pGyroDataXYZ[1]);
+	printf("GYRO_Z = %.2f \r\n", pGyroDataXYZ[2]);
+	printf("---------------------------\r\n");
+	HAL_Delay(1000);
 
 	BSP_GYRO_DeInit();
 	//printf("\n*** End of Gyro Test ***\n");
 	return;
 }
-void Gyro_Test2(float *pGyroDataXYZ) {
+void Gyro_Test2(float *pGyroDataXYZ)
+{
     BSP_GYRO_Init();
     BSP_GYRO_GetXYZ(pGyroDataXYZ);
 }
 
-void Magneto_Test1(void){
-	int16_t pDataXYZ[3] = {0};
+void Magneto_Test(void)
+{
+	int16_t pDataXYZ[3] = { 0 };
 	BSP_MAGNETO_Init();
 
-		BSP_MAGNETO_GetXYZ(pDataXYZ);
-		printf("MAGNETO_X = %d \r\n", pDataXYZ[0]);
-		printf("MAGNETO_Y = %d \r\n", pDataXYZ[1]);
-		printf("MAGNETO_Z = %d \r\n", pDataXYZ[2]);
-		HAL_Delay(1000);
+	BSP_MAGNETO_GetXYZ(pDataXYZ);
+	printf("MAGNETO_X = %d \r\n", pDataXYZ[0]);
+	printf("MAGNETO_Y = %d \r\n", pDataXYZ[1]);
+	printf("MAGNETO_Z = %d \r\n", pDataXYZ[2]);
+	HAL_Delay(1000);
 
 	BSP_MAGNETO_DeInit();
 	//printf("\n*** End of Magneto Test ***\n");
 	return;
 }
-void Magneto_Test2(int16_t *pDataXYZ) {
+void Magneto_Test2(int16_t *pDataXYZ)
+{
     BSP_MAGNETO_Init();
     BSP_MAGNETO_GetXYZ(pDataXYZ);
 }
@@ -236,21 +247,21 @@ int main(void)
   {
 		switch (mode) {
 		case (1):
-				printf("\n\n\n###########################\r\n");
-				printf("Lectura de sensores:\r\n");
-				printf("###########################\r\n\n");
-				Pressure_Test1();
-				Humidity_Test1();
-				Temperature_Test1();
-				Accelero_Test1();
-				Gyro_Test1();
-				Magneto_Test1();
-				if(breakEnable == 1){
-					if (__io_getchar() == 0) {
-						break;
-					}
+			printf("\n\n\n###########################\r\n");
+			printf("Lectura de sensores:\r\n");
+			printf("###########################\r\n\n");
+			Pressure_Test();
+			Humidity_Test();
+			Temperature_Test();
+			Accelero_Test();
+			Gyro_Test();
+			Magneto_Test();
+			if (breakEnable == 1) {
+				if (__io_getchar() == 0) {
+					break;
 				}
-				break;
+			}
+			break;
 		case (2):
 			float press_value = 0, humidity_value = 0, temperature_value = 0;
 			int16_t accel_data[3] = { 0 };

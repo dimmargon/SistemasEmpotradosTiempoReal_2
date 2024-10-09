@@ -29,23 +29,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY
  12 .comment      00000043  00000000  00000000  000202c8  2**0
                   CONTENTS, READONLY
- 13 .debug_info   0001babd  00000000  00000000  0002030b  2**0
+ 13 .debug_info   0001bac0  00000000  00000000  0002030b  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_abbrev 00004127  00000000  00000000  0003bdc8  2**0
+ 14 .debug_abbrev 00004127  00000000  00000000  0003bdcb  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_aranges 00001a28  00000000  00000000  0003fef0  2**3
+ 15 .debug_aranges 00001a28  00000000  00000000  0003fef8  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_rnglists 000013fd  00000000  00000000  00041918  2**0
+ 16 .debug_rnglists 000013fd  00000000  00000000  00041920  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_macro  0002a608  00000000  00000000  00042d15  2**0
+ 17 .debug_macro  0002a60e  00000000  00000000  00042d1d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_line   00020987  00000000  00000000  0006d31d  2**0
+ 18 .debug_line   00020977  00000000  00000000  0006d32b  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .debug_str    000fabf0  00000000  00000000  0008dca4  2**0
+ 19 .debug_str    000fabea  00000000  00000000  0008dca2  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 20 .debug_frame  00007d10  00000000  00000000  00188894  2**2
+ 20 .debug_frame  00007d10  00000000  00000000  0018888c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000058  00000000  00000000  001905a4  2**0
+ 21 .debug_line_str 00000058  00000000  00000000  0019059c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -4256,9 +4256,10 @@ int __io_getchar(void){
  8001ff2:	bf00      	nop
  8001ff4:	20000454 	.word	0x20000454
 
-08001ff8 <Pressure_Test1>:
+08001ff8 <Pressure_Test>:
 
-void Pressure_Test1(void) {
+void Pressure_Test(void)
+{
  8001ff8:	b580      	push	{r7, lr}
  8001ffa:	b082      	sub	sp, #8
  8001ffc:	af00      	add	r7, sp, #0
@@ -4275,10 +4276,10 @@ void Pressure_Test1(void) {
  8002012:	f7fe fa99 	bl	8000548 <__aeabi_f2d>
  8002016:	4602      	mov	r2, r0
  8002018:	460b      	mov	r3, r1
- 800201a:	4807      	ldr	r0, [pc, #28]	; (8002038 <Pressure_Test1+0x40>)
+ 800201a:	4807      	ldr	r0, [pc, #28]	; (8002038 <Pressure_Test+0x40>)
  800201c:	f006 f9e4 	bl	80083e8 <iprintf>
 	printf("---------------------------\r\n");
- 8002020:	4806      	ldr	r0, [pc, #24]	; (800203c <Pressure_Test1+0x44>)
+ 8002020:	4806      	ldr	r0, [pc, #24]	; (800203c <Pressure_Test+0x44>)
  8002022:	f006 fa47 	bl	80084b4 <puts>
 	HAL_Delay(1000);
  8002026:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
@@ -4293,7 +4294,8 @@ void Pressure_Test1(void) {
  800203c:	0800a424 	.word	0x0800a424
 
 08002040 <Pressure_Test2>:
-void Pressure_Test2(float *press_value) {
+void Pressure_Test2(float *press_value)
+{
  8002040:	b580      	push	{r7, lr}
  8002042:	b082      	sub	sp, #8
  8002044:	af00      	add	r7, sp, #0
@@ -4312,32 +4314,33 @@ void Pressure_Test2(float *press_value) {
  8002060:	bd80      	pop	{r7, pc}
 	...
 
-08002064 <Humidity_Test1>:
+08002064 <Humidity_Test>:
 
-void Humidity_Test1(void){
+void Humidity_Test(void)
+{
  8002064:	b580      	push	{r7, lr}
  8002066:	b082      	sub	sp, #8
  8002068:	af00      	add	r7, sp, #0
-	float humidity_value  = 0;
+	float humidity_value = 0;
  800206a:	f04f 0300 	mov.w	r3, #0
  800206e:	607b      	str	r3, [r7, #4]
 	BSP_HSENSOR_Init();
  8002070:	f7ff f940 	bl	80012f4 <BSP_HSENSOR_Init>
 
-		humidity_value = BSP_HSENSOR_ReadHumidity();
+	humidity_value = BSP_HSENSOR_ReadHumidity();
  8002074:	f7ff f95e 	bl	8001334 <BSP_HSENSOR_ReadHumidity>
  8002078:	ed87 0a01 	vstr	s0, [r7, #4]
-		printf("HUMIDITY is = %.2f %%\r\n", humidity_value);
+	printf("HUMIDITY is = %.2f %%\r\n", humidity_value);
  800207c:	6878      	ldr	r0, [r7, #4]
  800207e:	f7fe fa63 	bl	8000548 <__aeabi_f2d>
  8002082:	4602      	mov	r2, r0
  8002084:	460b      	mov	r3, r1
- 8002086:	4807      	ldr	r0, [pc, #28]	; (80020a4 <Humidity_Test1+0x40>)
+ 8002086:	4807      	ldr	r0, [pc, #28]	; (80020a4 <Humidity_Test+0x40>)
  8002088:	f006 f9ae 	bl	80083e8 <iprintf>
-		printf("---------------------------\r\n");
- 800208c:	4806      	ldr	r0, [pc, #24]	; (80020a8 <Humidity_Test1+0x44>)
+	printf("---------------------------\r\n");
+ 800208c:	4806      	ldr	r0, [pc, #24]	; (80020a8 <Humidity_Test+0x44>)
  800208e:	f006 fa11 	bl	80084b4 <puts>
-		HAL_Delay(1000);
+	HAL_Delay(1000);
  8002092:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8002096:	f001 fa0f 	bl	80034b8 <HAL_Delay>
 
@@ -4351,7 +4354,8 @@ void Humidity_Test1(void){
  80020a8:	0800a424 	.word	0x0800a424
 
 080020ac <Humidity_Test2>:
-void Humidity_Test2(float *humidity_value) {
+void Humidity_Test2(float *humidity_value)
+{
  80020ac:	b580      	push	{r7, lr}
  80020ae:	b082      	sub	sp, #8
  80020b0:	af00      	add	r7, sp, #0
@@ -4370,32 +4374,33 @@ void Humidity_Test2(float *humidity_value) {
  80020cc:	bd80      	pop	{r7, pc}
 	...
 
-080020d0 <Temperature_Test1>:
+080020d0 <Temperature_Test>:
 
-void Temperature_Test1(void){
+void Temperature_Test(void)
+{
  80020d0:	b580      	push	{r7, lr}
  80020d2:	b082      	sub	sp, #8
  80020d4:	af00      	add	r7, sp, #0
-	float temperature_value  = 0;
+	float temperature_value = 0;
  80020d6:	f04f 0300 	mov.w	r3, #0
  80020da:	607b      	str	r3, [r7, #4]
 	BSP_TSENSOR_Init();
  80020dc:	f7ff f9be 	bl	800145c <BSP_TSENSOR_Init>
 
-		temperature_value = BSP_TSENSOR_ReadTemp();
+	temperature_value = BSP_TSENSOR_ReadTemp();
  80020e0:	f7ff f9d8 	bl	8001494 <BSP_TSENSOR_ReadTemp>
  80020e4:	ed87 0a01 	vstr	s0, [r7, #4]
-		printf("TEMPERATURE is = %.2f ºC\r\n", temperature_value);
+	printf("TEMPERATURE is = %.2f ºC\r\n", temperature_value);
  80020e8:	6878      	ldr	r0, [r7, #4]
  80020ea:	f7fe fa2d 	bl	8000548 <__aeabi_f2d>
  80020ee:	4602      	mov	r2, r0
  80020f0:	460b      	mov	r3, r1
- 80020f2:	4807      	ldr	r0, [pc, #28]	; (8002110 <Temperature_Test1+0x40>)
+ 80020f2:	4807      	ldr	r0, [pc, #28]	; (8002110 <Temperature_Test+0x40>)
  80020f4:	f006 f978 	bl	80083e8 <iprintf>
-		printf("---------------------------\r\n");
- 80020f8:	4806      	ldr	r0, [pc, #24]	; (8002114 <Temperature_Test1+0x44>)
+	printf("---------------------------\r\n");
+ 80020f8:	4806      	ldr	r0, [pc, #24]	; (8002114 <Temperature_Test+0x44>)
  80020fa:	f006 f9db 	bl	80084b4 <puts>
-		HAL_Delay(1000);
+	HAL_Delay(1000);
  80020fe:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8002102:	f001 f9d9 	bl	80034b8 <HAL_Delay>
 
@@ -4409,7 +4414,8 @@ void Temperature_Test1(void){
  8002114:	0800a424 	.word	0x0800a424
 
 08002118 <Temperature_Test2>:
-void Temperature_Test2(float *temperature_value) {
+void Temperature_Test2(float *temperature_value)
+{
  8002118:	b580      	push	{r7, lr}
  800211a:	b082      	sub	sp, #8
  800211c:	af00      	add	r7, sp, #0
@@ -4428,13 +4434,14 @@ void Temperature_Test2(float *temperature_value) {
  8002138:	bd80      	pop	{r7, pc}
 	...
 
-0800213c <Accelero_Test1>:
+0800213c <Accelero_Test>:
 
-void Accelero_Test1(void){
+void Accelero_Test(void)
+{
  800213c:	b580      	push	{r7, lr}
  800213e:	b082      	sub	sp, #8
  8002140:	af00      	add	r7, sp, #0
-	int16_t pDataXYZ[3] = {0};
+	int16_t pDataXYZ[3] = { 0 };
  8002142:	463b      	mov	r3, r7
  8002144:	2200      	movs	r2, #0
  8002146:	601a      	str	r2, [r3, #0]
@@ -4442,25 +4449,24 @@ void Accelero_Test1(void){
 	BSP_ACCELERO_Init();
  800214a:	f7fe fffb 	bl	8001144 <BSP_ACCELERO_Init>
 
-		BSP_ACCELERO_AccGetXYZ(pDataXYZ);
+	BSP_ACCELERO_AccGetXYZ(pDataXYZ);
  800214e:	463b      	mov	r3, r7
  8002150:	4618      	mov	r0, r3
  8002152:	f7ff f849 	bl	80011e8 <BSP_ACCELERO_AccGetXYZ>
-		printf("X=%d, Y=%d, Z=%d\r\n", pDataXYZ[0], pDataXYZ[1], pDataXYZ[2]);
+	printf("X=%d, Y=%d, Z=%d\r\n", pDataXYZ[0], pDataXYZ[1], pDataXYZ[2]);
  8002156:	f9b7 3000 	ldrsh.w	r3, [r7]
  800215a:	4619      	mov	r1, r3
  800215c:	f9b7 3002 	ldrsh.w	r3, [r7, #2]
  8002160:	461a      	mov	r2, r3
  8002162:	f9b7 3004 	ldrsh.w	r3, [r7, #4]
- 8002166:	4808      	ldr	r0, [pc, #32]	; (8002188 <Accelero_Test1+0x4c>)
+ 8002166:	4808      	ldr	r0, [pc, #32]	; (8002188 <Accelero_Test+0x4c>)
  8002168:	f006 f93e 	bl	80083e8 <iprintf>
-		printf("---------------------------\r\n");
- 800216c:	4807      	ldr	r0, [pc, #28]	; (800218c <Accelero_Test1+0x50>)
+	printf("---------------------------\r\n");
+ 800216c:	4807      	ldr	r0, [pc, #28]	; (800218c <Accelero_Test+0x50>)
  800216e:	f006 f9a1 	bl	80084b4 <puts>
-		HAL_Delay(1000);
+	HAL_Delay(1000);
  8002172:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8002176:	f001 f99f 	bl	80034b8 <HAL_Delay>
-
 
 	BSP_ACCELERO_DeInit();
  800217a:	f7ff f821 	bl	80011c0 <BSP_ACCELERO_DeInit>
@@ -4476,7 +4482,8 @@ void Accelero_Test1(void){
  800218c:	0800a424 	.word	0x0800a424
 
 08002190 <Accelero_Test2>:
-void Accelero_Test2(int16_t *pDataXYZ) {
+void Accelero_Test2(int16_t *pDataXYZ)
+{
  8002190:	b580      	push	{r7, lr}
  8002192:	b082      	sub	sp, #8
  8002194:	af00      	add	r7, sp, #0
@@ -4493,13 +4500,14 @@ void Accelero_Test2(int16_t *pDataXYZ) {
  80021a8:	bd80      	pop	{r7, pc}
 	...
 
-080021ac <Gyro_Test1>:
+080021ac <Gyro_Test>:
 
-void Gyro_Test1(void){
+void Gyro_Test(void)
+{
  80021ac:	b580      	push	{r7, lr}
  80021ae:	b084      	sub	sp, #16
  80021b0:	af00      	add	r7, sp, #0
-	float pGyroDataXYZ[3] = {0};
+	float pGyroDataXYZ[3] = { 0 };
  80021b2:	1d3b      	adds	r3, r7, #4
  80021b4:	2200      	movs	r2, #0
  80021b6:	601a      	str	r2, [r3, #0]
@@ -4508,38 +4516,38 @@ void Gyro_Test1(void){
 	BSP_GYRO_Init();
  80021bc:	f7ff f82c 	bl	8001218 <BSP_GYRO_Init>
 
-		BSP_GYRO_GetXYZ(pGyroDataXYZ);
+	BSP_GYRO_GetXYZ(pGyroDataXYZ);
  80021c0:	1d3b      	adds	r3, r7, #4
  80021c2:	4618      	mov	r0, r3
  80021c4:	f7ff f87e 	bl	80012c4 <BSP_GYRO_GetXYZ>
-		printf("GYRO_X = %.2f \r\n", pGyroDataXYZ[0]);
+	printf("GYRO_X = %.2f \r\n", pGyroDataXYZ[0]);
  80021c8:	687b      	ldr	r3, [r7, #4]
  80021ca:	4618      	mov	r0, r3
  80021cc:	f7fe f9bc 	bl	8000548 <__aeabi_f2d>
  80021d0:	4602      	mov	r2, r0
  80021d2:	460b      	mov	r3, r1
- 80021d4:	4810      	ldr	r0, [pc, #64]	; (8002218 <Gyro_Test1+0x6c>)
+ 80021d4:	4810      	ldr	r0, [pc, #64]	; (8002218 <Gyro_Test+0x6c>)
  80021d6:	f006 f907 	bl	80083e8 <iprintf>
-		printf("GYRO_Y = %.2f \r\n", pGyroDataXYZ[1]);
+	printf("GYRO_Y = %.2f \r\n", pGyroDataXYZ[1]);
  80021da:	68bb      	ldr	r3, [r7, #8]
  80021dc:	4618      	mov	r0, r3
  80021de:	f7fe f9b3 	bl	8000548 <__aeabi_f2d>
  80021e2:	4602      	mov	r2, r0
  80021e4:	460b      	mov	r3, r1
- 80021e6:	480d      	ldr	r0, [pc, #52]	; (800221c <Gyro_Test1+0x70>)
+ 80021e6:	480d      	ldr	r0, [pc, #52]	; (800221c <Gyro_Test+0x70>)
  80021e8:	f006 f8fe 	bl	80083e8 <iprintf>
-		printf("GYRO_Z = %.2f \r\n", pGyroDataXYZ[2]);
+	printf("GYRO_Z = %.2f \r\n", pGyroDataXYZ[2]);
  80021ec:	68fb      	ldr	r3, [r7, #12]
  80021ee:	4618      	mov	r0, r3
  80021f0:	f7fe f9aa 	bl	8000548 <__aeabi_f2d>
  80021f4:	4602      	mov	r2, r0
  80021f6:	460b      	mov	r3, r1
- 80021f8:	4809      	ldr	r0, [pc, #36]	; (8002220 <Gyro_Test1+0x74>)
+ 80021f8:	4809      	ldr	r0, [pc, #36]	; (8002220 <Gyro_Test+0x74>)
  80021fa:	f006 f8f5 	bl	80083e8 <iprintf>
-		printf("---------------------------\r\n");
- 80021fe:	4809      	ldr	r0, [pc, #36]	; (8002224 <Gyro_Test1+0x78>)
+	printf("---------------------------\r\n");
+ 80021fe:	4809      	ldr	r0, [pc, #36]	; (8002224 <Gyro_Test+0x78>)
  8002200:	f006 f958 	bl	80084b4 <puts>
-		HAL_Delay(1000);
+	HAL_Delay(1000);
  8002204:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8002208:	f001 f956 	bl	80034b8 <HAL_Delay>
 
@@ -4558,7 +4566,8 @@ void Gyro_Test1(void){
  8002224:	0800a424 	.word	0x0800a424
 
 08002228 <Gyro_Test2>:
-void Gyro_Test2(float *pGyroDataXYZ) {
+void Gyro_Test2(float *pGyroDataXYZ)
+{
  8002228:	b580      	push	{r7, lr}
  800222a:	b082      	sub	sp, #8
  800222c:	af00      	add	r7, sp, #0
@@ -4575,13 +4584,14 @@ void Gyro_Test2(float *pGyroDataXYZ) {
  8002240:	bd80      	pop	{r7, pc}
 	...
 
-08002244 <Magneto_Test1>:
+08002244 <Magneto_Test>:
 
-void Magneto_Test1(void){
+void Magneto_Test(void)
+{
  8002244:	b580      	push	{r7, lr}
  8002246:	b082      	sub	sp, #8
  8002248:	af00      	add	r7, sp, #0
-	int16_t pDataXYZ[3] = {0};
+	int16_t pDataXYZ[3] = { 0 };
  800224a:	463b      	mov	r3, r7
  800224c:	2200      	movs	r2, #0
  800224e:	601a      	str	r2, [r3, #0]
@@ -4589,26 +4599,26 @@ void Magneto_Test1(void){
 	BSP_MAGNETO_Init();
  8002252:	f7ff f87d 	bl	8001350 <BSP_MAGNETO_Init>
 
-		BSP_MAGNETO_GetXYZ(pDataXYZ);
+	BSP_MAGNETO_GetXYZ(pDataXYZ);
  8002256:	463b      	mov	r3, r7
  8002258:	4618      	mov	r0, r3
  800225a:	f7ff f8b9 	bl	80013d0 <BSP_MAGNETO_GetXYZ>
-		printf("MAGNETO_X = %d \r\n", pDataXYZ[0]);
+	printf("MAGNETO_X = %d \r\n", pDataXYZ[0]);
  800225e:	f9b7 3000 	ldrsh.w	r3, [r7]
  8002262:	4619      	mov	r1, r3
- 8002264:	480c      	ldr	r0, [pc, #48]	; (8002298 <Magneto_Test1+0x54>)
+ 8002264:	480c      	ldr	r0, [pc, #48]	; (8002298 <Magneto_Test+0x54>)
  8002266:	f006 f8bf 	bl	80083e8 <iprintf>
-		printf("MAGNETO_Y = %d \r\n", pDataXYZ[1]);
+	printf("MAGNETO_Y = %d \r\n", pDataXYZ[1]);
  800226a:	f9b7 3002 	ldrsh.w	r3, [r7, #2]
  800226e:	4619      	mov	r1, r3
- 8002270:	480a      	ldr	r0, [pc, #40]	; (800229c <Magneto_Test1+0x58>)
+ 8002270:	480a      	ldr	r0, [pc, #40]	; (800229c <Magneto_Test+0x58>)
  8002272:	f006 f8b9 	bl	80083e8 <iprintf>
-		printf("MAGNETO_Z = %d \r\n", pDataXYZ[2]);
+	printf("MAGNETO_Z = %d \r\n", pDataXYZ[2]);
  8002276:	f9b7 3004 	ldrsh.w	r3, [r7, #4]
  800227a:	4619      	mov	r1, r3
- 800227c:	4808      	ldr	r0, [pc, #32]	; (80022a0 <Magneto_Test1+0x5c>)
+ 800227c:	4808      	ldr	r0, [pc, #32]	; (80022a0 <Magneto_Test+0x5c>)
  800227e:	f006 f8b3 	bl	80083e8 <iprintf>
-		HAL_Delay(1000);
+	HAL_Delay(1000);
  8002282:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
  8002286:	f001 f917 	bl	80034b8 <HAL_Delay>
 
@@ -4627,7 +4637,8 @@ void Magneto_Test1(void){
  80022a0:	0800a4f0 	.word	0x0800a4f0
 
 080022a4 <Magneto_Test2>:
-void Magneto_Test2(int16_t *pDataXYZ) {
+void Magneto_Test2(int16_t *pDataXYZ)
+{
  80022a4:	b580      	push	{r7, lr}
  80022a6:	b082      	sub	sp, #8
  80022a8:	af00      	add	r7, sp, #0
@@ -4710,39 +4721,39 @@ int main(void)
  8002302:	d01e      	beq.n	8002342 <main+0x82>
  8002304:	e7f8      	b.n	80022f8 <main+0x38>
 		case (1):
-				printf("\n\n\n###########################\r\n");
+			printf("\n\n\n###########################\r\n");
  8002306:	4857      	ldr	r0, [pc, #348]	; (8002464 <main+0x1a4>)
  8002308:	f006 f8d4 	bl	80084b4 <puts>
-				printf("Lectura de sensores:\r\n");
+			printf("Lectura de sensores:\r\n");
  800230c:	4856      	ldr	r0, [pc, #344]	; (8002468 <main+0x1a8>)
  800230e:	f006 f8d1 	bl	80084b4 <puts>
-				printf("###########################\r\n\n");
+			printf("###########################\r\n\n");
  8002312:	4856      	ldr	r0, [pc, #344]	; (800246c <main+0x1ac>)
  8002314:	f006 f8ce 	bl	80084b4 <puts>
-				Pressure_Test1();
- 8002318:	f7ff fe6e 	bl	8001ff8 <Pressure_Test1>
-				Humidity_Test1();
- 800231c:	f7ff fea2 	bl	8002064 <Humidity_Test1>
-				Temperature_Test1();
- 8002320:	f7ff fed6 	bl	80020d0 <Temperature_Test1>
-				Accelero_Test1();
- 8002324:	f7ff ff0a 	bl	800213c <Accelero_Test1>
-				Gyro_Test1();
- 8002328:	f7ff ff40 	bl	80021ac <Gyro_Test1>
-				Magneto_Test1();
- 800232c:	f7ff ff8a 	bl	8002244 <Magneto_Test1>
-				if(breakEnable == 1){
+			Pressure_Test();
+ 8002318:	f7ff fe6e 	bl	8001ff8 <Pressure_Test>
+			Humidity_Test();
+ 800231c:	f7ff fea2 	bl	8002064 <Humidity_Test>
+			Temperature_Test();
+ 8002320:	f7ff fed6 	bl	80020d0 <Temperature_Test>
+			Accelero_Test();
+ 8002324:	f7ff ff0a 	bl	800213c <Accelero_Test>
+			Gyro_Test();
+ 8002328:	f7ff ff40 	bl	80021ac <Gyro_Test>
+			Magneto_Test();
+ 800232c:	f7ff ff8a 	bl	8002244 <Magneto_Test>
+			if (breakEnable == 1) {
  8002330:	6abb      	ldr	r3, [r7, #40]	; 0x28
  8002332:	2b01      	cmp	r3, #1
  8002334:	f040 8092 	bne.w	800245c <main+0x19c>
-					if (__io_getchar() == 0) {
+				if (__io_getchar() == 0) {
  8002338:	f7ff fe46 	bl	8001fc8 <__io_getchar>
  800233c:	4603      	mov	r3, r0
  800233e:	2b00      	cmp	r3, #0
-						break;
-					}
+					break;
 				}
-				break;
+			}
+			break;
  8002340:	e08c      	b.n	800245c <main+0x19c>
 		case (2):
 			float press_value = 0, humidity_value = 0, temperature_value = 0;
@@ -4871,7 +4882,7 @@ int main(void)
 			}
 			break;
  800245a:	e001      	b.n	8002460 <main+0x1a0>
-				break;
+			break;
  800245c:	bf00      	nop
  800245e:	e74b      	b.n	80022f8 <main+0x38>
 			break;

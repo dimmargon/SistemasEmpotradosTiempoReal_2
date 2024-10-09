@@ -46,6 +46,12 @@ void Pressure_Test(void);
 void Gyro_Test(void);
 void Magneto_Test(void);
 void Accelero_Test(void);
+void Temperature_Test2(float *temperature_value);
+void Humidity_Test2(float *humidity_valueZ);
+void Pressure_Test2(float *press_value);
+void Gyro_Test2(float *pGyroDataXYZ);
+void Magneto_Test2(int16_t *pDataXYZ);
+void Accelero_Test2(int16_t *pDataXYZ);
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
