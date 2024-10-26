@@ -1,49 +1,43 @@
-#include "main.h"
-#include "cmsis_os.h"
-#include "FreeRTOS.h"
-#include "semphr.h"
 #include "SerialTask.h"
 
 extern UART_HandleTypeDef huart1;
 SemaphoreHandle_t xSemaphore;
 QueueHandle_t xQueue;
 
+char receivedChar; //buffer para el caracter
+
 void CreateSerialObjects()
 {
     xSemaphore = xSemaphoreCreateBinary();
-    xSemaphoreGive(xSemaphore);
-    xQueue = xQueueCreate(16, sizeof(char));
+    xSemaphoreGive(xSemaphore); //disponible inicialmente
+    xQueue = xQueueCreate(16, sizeof(char)); //almaceno hasta 16 caracteres
 }
 
 void CreateTasks()
 {
     xTaskCreate(serialRxTask, "SerialRxTask", 128, NULL, 1, NULL);
 
-    //aqui inicio la recepcion del primer caracter
-    char initialChar;
-    HAL_UART_Receive_IT(&huart1, (uint8_t*)&initialChar, 1);
+    //inicio la recepcion del primer caracter
+    HAL_UART_Receive_IT(&huart1, (uint8_t*)&receivedChar, 1);
 }
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 {
     static signed long xHigherPriorityTaskWoken = pdFALSE;
+    //libero el semaforo
     xSemaphoreGiveFromISR(xSemaphore, &xHigherPriorityTaskWoken);
-    portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+    portYIELD_FROM_ISR(xHigherPriorityTaskWoken); //solo en caso de prioridades mayores
 }
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
     static signed long xHigherPriorityTaskWoken = pdFALSE;
-    char receivedChar;
-
     //envio el caracter recibido a la cola
-    //inicio la recepcion del siguiente caracter
-    if (HAL_UART_Receive_IT(&huart1, (uint8_t*)&receivedChar, 1) == HAL_OK)
-    {
-        xQueueSendFromISR(xQueue, &receivedChar, &xHigherPriorityTaskWoken);
-    }
+    xQueueSendFromISR(xQueue, &receivedChar, &xHigherPriorityTaskWoken);
 
-    portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
+    //inicio la recepcion del siguiente caracter
+    HAL_UART_Receive_IT(&huart1, (uint8_t*)&receivedChar, 1);
+    portYIELD_FROM_ISR(xHigherPriorityTaskWoken); //solo en caso de prioridades mayores
 }
 
 void serialRxTask(void *pvParameters)
@@ -54,6 +48,7 @@ void serialRxTask(void *pvParameters)
 
     while (1)
     {
+    	//espero hasta que haya un caracter en la cola
         if (xQueueReceive(xQueue, &receivedChar, portMAX_DELAY) == pdTRUE)
         {
             printf("Nuevo dato recibido: %c\r\n", receivedChar);
@@ -65,7 +60,7 @@ int __io_putchar(int ch)
 {
     BaseType_t status = xSemaphoreTake(xSemaphore, portMAX_DELAY);
 
-    if (status == pdTRUE)
+    if (status == pdTRUE) //espero al semaforo
     {
     	//transmito el caracter por UART
         HAL_UART_Transmit_IT(&huart1, (uint8_t*)&ch, 1);

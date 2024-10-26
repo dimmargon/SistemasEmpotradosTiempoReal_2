@@ -1,5 +1,5 @@
-Core/Src/SerialTask.o: ../Core/Src/SerialTask.c ../Core/Inc/main.h \
- ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h \
+Core/Src/SerialTask.o: ../Core/Src/SerialTask.c ../Core/Inc/SerialTask.h \
+ ../Core/Inc/main.h ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h \
  ../Core/Inc/stm32l4xx_hal_conf.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_rcc.h \
  ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal_def.h \
@@ -49,8 +49,8 @@ Core/Src/SerialTask.o: ../Core/Src/SerialTask.c ../Core/Inc/main.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h \
- ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
- ../Core/Inc/SerialTask.h
+ ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h
+../Core/Inc/SerialTask.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_hal.h:
 ../Core/Inc/stm32l4xx_hal_conf.h:
@@ -103,4 +103,3 @@ Core/Src/SerialTask.o: ../Core/Src/SerialTask.c ../Core/Inc/main.h \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h:
-../Core/Inc/SerialTask.h:
