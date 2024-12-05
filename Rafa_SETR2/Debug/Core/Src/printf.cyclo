@@ -1,0 +1,4 @@
+../Core/Src/printf.c:15:6:HAL_UART_TxCpltCallback	2
+../Core/Src/printf.c:24:5:__io_putchar	1
+../Core/Src/printf.c:38:6:HAL_UART_RxCpltCallback	2
+../Core/Src/printf.c:45:5:__io_getchar	1
