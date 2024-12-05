@@ -1,6 +1,0 @@
-../Core/Src/Tareas.c:32:6:TareaWebServer	16	static
-../Core/Src/Tareas.c:37:6:TareaLED	24	static
-../Core/Src/Tareas.c:47:6:CreateTasks	16	static
-../Core/Src/Tareas.c:55:6:CreateSerialObjects	8	static
-../Core/Src/Tareas.c:65:6:EncolarLED	16	static
-../Core/Src/Tareas.c:70:19:GetSensores	64	static

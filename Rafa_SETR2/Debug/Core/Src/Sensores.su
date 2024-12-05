@@ -1,3 +1,0 @@
-../Core/Src/Sensores.c:36:6:InitSensores	8	static
-../Core/Src/Sensores.c:47:6:ReadSensores	8	static
-../Core/Src/Sensores.c:59:6:TareaSensores	16	static
